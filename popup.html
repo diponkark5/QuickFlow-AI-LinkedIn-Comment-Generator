@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    @keyframes popupFade {
+      from { opacity: 0; transform: scale(0.97); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    body {
+      width: 320px;
+      margin: 0;
+      padding: 16px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #1f2937;
+      background: #fafafa;
+      box-sizing: border-box;
+      animation: popupFade 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand img {
+      width: 26px;
+      height: 26px;
+      border-radius: 6px;
+      box-shadow: 0 2px 4px rgba(10, 102, 194, 0.2);
+    }
+    .title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #0a66c2;
+      letter-spacing: -0.2px;
+    }
+    .stats-banner {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .stat-pill {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 8px 6px;
+      text-align: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+      transition: transform 0.15s ease;
+    }
+    .stat-pill:hover {
+      transform: translateY(-1px);
+    }
+    .stat-val {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0a66c2;
+      line-height: 1.2;
+    }
+    .stat-lbl {
+      font-size: 9px;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 3px;
+      font-weight: 600;
+    }
+    .account-card {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+    }
+    .account-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .user-handle {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 170px;
+    }
+    .plan-badge {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 2px 7px;
+      border-radius: 12px;
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+    .plan-badge.pro {
+      background: #fef3c7;
+      color: #b45309;
+    }
+    .quota-info {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #6b7280;
+      margin-bottom: 6px;
+    }
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: #f3f4f6;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .progress-fill {
+      height: 100%;
+      background: #0a66c2;
+      border-radius: 3px;
+      transition: width 0.3s ease;
+    }
+    .upgrade-btn {
+      width: 100%;
+      padding: 8px 0;
+      background: linear-gradient(135deg, #0a66c2, #004182);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      display: block;
+      box-shadow: 0 2px 5px rgba(10, 102, 194, 0.2);
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .upgrade-btn:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #4b5563;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 14px 0 6px 0;
+    }
+    .control-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    select {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 12px;
+      background: white;
+      color: #1f2937;
+      box-sizing: border-box;
+      outline: none;
+    }
+    select:focus {
+      border-color: #0a66c2;
+    }
+    .segmented-control {
+      display: flex;
+      background: #e5e7eb;
+      border-radius: 8px;
+      padding: 3px;
+      gap: 3px;
+    }
+    .seg-btn {
+      flex: 1;
+      padding: 6px 0;
+      border: none;
+      background: transparent;
+      color: #4b5563;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: center;
+    }
+    .seg-btn.active {
+      background: white;
+      color: #0a66c2;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .tone-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      background: #ffffff;
+      padding: 10px;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .tone-item {
+      display: flex;
+      align-items: center;
+      font-size: 12px;
+      padding: 2px 0;
+    }
+    .tone-item label {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      user-select: none;
+      color: #374151;
+      font-weight: 500;
+    }
+    .tone-item input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      accent-color: #0a66c2;
+      cursor: pointer;
+    }
+    .dashboard-btn {
+      width: 100%;
+      padding: 9px 0;
+      background: white;
+      color: #4b5563;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: background 0.15s;
+    }
+    .dashboard-btn:hover {
+      background: #f3f4f6;
+      color: #111827;
+    }
+    .dashboard-btn svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="brand">
+      <img src="icon.png" alt="Logo" />
+      <span class="title">QuickFlow AI</span>
+    </div>
+  </div>
+
+  <div class="stats-banner">
+    <div class="stat-pill"><div class="stat-val" id="todayCount">0</div><div class="stat-lbl">Today</div></div>
+    <div class="stat-pill"><div class="stat-val" id="streakDays">0d</div><div class="stat-lbl">Streak</div></div>
+    <div class="stat-pill"><div class="stat-val" id="savedMins">0m</div><div class="stat-lbl">Saved</div></div>
+  </div>
+
+  <div class="account-card">
+    <div class="account-row">
+      <span class="user-handle" id="userHandle">Active User</span>
+      <span class="plan-badge" id="planBadge">Free Plan</span>
+    </div>
+    <div class="quota-info">
+      <span>Daily Free Credits</span>
+      <span id="quotaText">0 / 15 Used</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+    </div>
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdlaB-HHAzzifnF6owkSZ1NmyTTLscmrbzkmoe92cSGFNGKHA/viewform?usp=publish-editor" target="_blank" class="upgrade-btn" id="upgradeBtn" style="background: linear-gradient(135deg, #10b981, #047857);">⏳ Join the Pro Waitlist</a>
+  </div>
+
+  <div class="section-label">Your Persona / Niche</div>
+  <div class="control-row">
+    <select id="userPersona">
+      <option value="general">Thoughtful Peer (Neutral)</option>
+      <option value="design">UI/UX & Product Designer</option>
+      <option value="founder">Tech Founder & Builder</option>
+      <option value="developer">Software Engineer</option>
+      <option value="marketing">Growth & Content Strategist</option>
+    </select>
+  </div>
+
+  <div class="section-label">Comment Length</div>
+  <div class="segmented-control" id="lengthControl">
+    <button class="seg-btn" data-val="punchy">Punchy (1L)</button>
+    <button class="seg-btn active" data-val="balanced">Balanced (2L)</button>
+    <button class="seg-btn" data-val="detailed">Deep (3L)</button>
+  </div>
+
+  <div class="section-label" style="margin-top: 14px;">Toggle Extra Tones</div>
+  <div class="tone-grid" id="toneGrid">
+    <div class="tone-item"><label><input type="checkbox" value="Supportive">💖 Support</label></div>
+    <div class="tone-item"><label><input type="checkbox" value="Agree & Add">➕ Add-On</label></div>
+    <div class="tone-item"><label><input type="checkbox" value="Counter">⚖️ Counter</label></div>
+    <div class="tone-item"><label><input type="checkbox" value="Story">📖 Micro-Story</label></div>
+    <div class="tone-item"><label><input type="checkbox" value="Concise">⚡ Concise</label></div>
+    <div class="tone-item"><label><input type="checkbox" value="Rewrite">🔄 Rewrite</label></div>
+  </div>
+
+  <button class="dashboard-btn" id="openDashboard">
+    <svg width="13" height="13" viewBox="0 0 24 24">
+      <rect x="3" y="3" width="7" height="9"/>
+      <rect x="14" y="3" width="7" height="5"/>
+      <rect x="14" y="12" width="7" height="9"/>
+      <rect x="3" y="16" width="7" height="5"/>
+    </svg>
+    Open Insights Dashboard
+  </button>
+
+  <script src="config.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

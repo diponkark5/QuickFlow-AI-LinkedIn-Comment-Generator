@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>QuickFlow AI — Insights & Activity Ledger</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <div class="dash-container">
+    <header class="dash-header">
+      <div class="header-left">
+        <div class="brand">
+          <span class="brand-icon">⚡</span>
+          <h1>QuickFlow AI Insights</h1>
+        </div>
+        <p class="subtitle">Your private, local engagement analytics & comment history ledger</p>
+      </div>
+      <div class="header-right">
+        <button class="btn btn-secondary" id="exportBtn">📥 Export JSON</button>
+        <button class="btn btn-danger" id="clearBtn">🗑️ Clear History</button>
+      </div>
+    </header>
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-label">Total Generated</div>
+        <div class="kpi-val" id="totalCount">0</div>
+        <div class="kpi-sub">Across all LinkedIn sessions</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Estimated Time Saved</div>
+        <div class="kpi-val" id="timeSaved">0h 0m</div>
+        <div class="kpi-sub">At ~2.5 minutes per drafted reply</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Total Words Written</div>
+        <div class="kpi-val" id="totalWords">0</div>
+        <div class="kpi-sub" id="avgWords">Avg 0 words / comment</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-label">Top Preferred Tone</div>
+        <div class="kpi-val" id="topTone">—</div>
+        <div class="kpi-sub" id="topTonePct">0% of all activity</div>
+      </div>
+    </section>
+    <section class="charts-row">
+      <div class="panel">
+        <div class="panel-header"><h3>Tone Distribution Breakdown</h3></div>
+        <div class="tone-bars-container" id="toneBars">
+          <p class="empty-state">No comments recorded yet. Go to LinkedIn to start generating!</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><h3>Last 7 Days Velocity</h3></div>
+        <div class="activity-chart-container" id="activityChart"></div>
+      </div>
+    </section>
+    <section class="panel ledger-panel">
+      <div class="ledger-header">
+        <div>
+          <h3>Activity History Ledger</h3>
+          <p class="subtitle" style="margin: 2px 0 0 0;">Recent LinkedIn comment generations stored securely on this computer</p>
+        </div>
+        <div class="filters">
+          <input type="text" id="searchInput" placeholder="Search comments or posts..." />
+          <select id="toneFilter">
+            <option value="ALL">All Tones</option>
+            <option value="Casual">Casual</option>
+            <option value="Insight">Insight</option>
+            <option value="Helpful">Helpful</option>
+            <option value="Inspire">Inspire</option>
+            <option value="Humor">Humor</option>
+            <option value="Question">Question</option>
+            <option value="Supportive">Supportive</option>
+            <option value="Agree & Add">Agree & Add</option>
+            <option value="Counter">Counter</option>
+            <option value="Story">Story</option>
+            <option value="Concise">Concise</option>
+            <option value="Rewrite">Rewrite</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="ledger-table">
+          <thead>
+            <tr>
+              <th style="width: 140px;">Timestamp</th>
+              <th style="width: 110px;">Tone</th>
+              <th>Post Context</th>
+              <th>Generated Comment</th>
+              <th style="width: 90px; text-align: right;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="ledgerBody">
+            <tr>
+              <td colspan="5" class="empty-state">No comments found in ledger.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+  <div class="toast" id="toast">Copied to clipboard!</div>
+  <script src="config.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+</html>

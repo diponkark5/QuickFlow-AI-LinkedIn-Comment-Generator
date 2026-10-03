@@ -1,0 +1,59 @@
+{
+  "manifest_version": 3,
+  "name": "QuickFlow AI: LinkedIn Comment Generator",
+  "version": "1.0.0",
+  "description": "Boost your LinkedIn engagement with one click. Generate authentic, human-like comments with custom tones and personas using AI.",
+  "permissions": [
+    "storage",
+    "scripting",
+    "cookies"
+  ],
+  "host_permissions": [
+    "https://*.linkedin.com/*",
+    "https://quickflow-api.diponkark5.workers.dev/*",
+    "https://otfogahftcfkkxqhtyan.supabase.co/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icon.png",
+      "48": "icon.png",
+      "128": "icon.png"
+    }
+  },
+  "icons": {
+    "16": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.linkedin.com/*"
+      ],
+      "js": [
+        "config.js",
+        "content.js"
+      ],
+      "css": [
+        "style.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "dashboard.html",
+        "dashboard.js",
+        "dashboard.css",
+        "icon.png"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ]
+}
